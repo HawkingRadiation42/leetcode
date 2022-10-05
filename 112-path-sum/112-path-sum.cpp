@@ -12,9 +12,18 @@
 class Solution {
 public:
     bool hasPathSum(TreeNode* root, int sum) {
-        if(!root)return false;                                         //Terminating Condition
-        sum=sum-root->val;                                             //Body
-        if(sum==0&&!root->left&&!root->right)return true;              //body
-        return hasPathSum(root->left,sum)||hasPathSum(root->right,sum);
+        if(root == NULL) return false;
+        stack<pair<TreeNode*,int>> stack;
+        stack.push({root, root->val});
+        while(!stack.empty()) {
+            TreeNode* current = stack.top().first; 
+            int total_sum = stack.top().second; stack.pop();
+            if(current->right) stack.push({current->right, total_sum+current->right->val});
+            if(current->left) stack.push({current->left, total_sum+current->left->val});
+            if(!current->right && !current->left && total_sum==sum) { //if its a leaf
+                return true; //and total sum is found
+            }
+        }
+        return false;
     }
 };
