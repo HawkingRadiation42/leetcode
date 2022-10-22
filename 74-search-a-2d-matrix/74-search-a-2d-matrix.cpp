@@ -1,33 +1,58 @@
+
 class Solution {
-public:
-    bool searchMatrix(vector<vector<int>>& m, int t) {
-        if(!m.size() || !m[0].size()) 
-            return false;
-        int row, l=0, r=m.size()-1, mid;
-        
-        while(l<r){
-            mid = (l+r)/2;
-            if(m[mid].back()<t) 
-                l = mid+1;
-            else if(m[mid][0]>t) 
-                r = mid-1;
-            else{
-                l = mid;
-                break;
-            }
-        }
-        row = l;
-        l=0;
-        r = m[0].size()-1;
-        while(l<=r){
-            mid=(l+r)/2;
-            if(m[row][mid]<t) 
-                l = mid+1;
-            else if(m[row][mid]>t) 
-                r = mid-1;
-            else 
-                return true;
-        }
-        return false;
+ public:
+  int verticalSearch(vector<vector<int>>& matrix, int target) {
+    int targetRow;
+    int l = 0, h = matrix.size(), mid;
+    while (l < h) {
+      mid = (l + h) / 2;
+
+      if (matrix[mid][0] == target) return mid;
+
+      if (target > matrix[mid][0] && target < matrix[mid + 1][0]) return mid;
+
+      if (target < matrix[mid][0]) h = mid;
+
+      if (target > matrix[mid][0]) l = mid + 1;
     }
+
+    return -1;
+  }
+
+  bool horizontalSearch(vector<vector<int>>& matrix, int target, int row) {
+    int l = 0, h = matrix[0].size();
+    int mid;
+
+    while (l < h) {
+      mid = (l + h) / 2;
+
+      if (matrix[row][mid] == target)
+        return true;
+
+      else if (matrix[row][mid] > target)
+        h = mid;
+
+      else
+        l = mid + 1;
+    }
+
+    return false;
+  }
+
+  bool searchMatrix(vector<vector<int>>& matrix, int target) {
+    if (matrix[0][0] > target) return false;
+
+    int rows = matrix.size(), cols = matrix[0].size();
+
+    int targetRow;
+
+    if (target >= matrix[rows - 1][0])
+      targetRow = rows - 1;
+
+    else {
+      targetRow = verticalSearch(matrix, target);
+    }
+
+    return horizontalSearch(matrix, target, targetRow);
+  }
 };
