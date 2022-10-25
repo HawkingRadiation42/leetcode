@@ -13,11 +13,13 @@ public:
     int getDecimalValue(ListNode* head) {
         if(!head)
             return 0;
-        int ans=0;
+        int bin=0;
         while(head){
-            ans=(ans<<1)|head->val;
-            head=head->next;
+            bin<<=1;
+            bin |= (head->val);
+            head = head->next;
         }
-        return ans;
+
+        return bin;
     }
 };
