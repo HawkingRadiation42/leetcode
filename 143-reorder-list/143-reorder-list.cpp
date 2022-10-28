@@ -16,16 +16,16 @@ public:
             dummy = dummy->next;
         }
         
-        ListNode *prev = head;
+        dummy = head;
         
         for(int i = 0;i<size/2;i++){
             ListNode*element = stack.top();
             stack.pop();
-            element->next = prev->next;
-            prev->next = element;
-            prev= prev->next->next;
+            element->next = dummy->next;
+            dummy->next = element;
+            dummy= dummy->next->next;
         }
-        prev->next = NULL;
+        dummy->next = NULL;
         
     }
 };
