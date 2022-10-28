@@ -4,33 +4,28 @@ public:
         
         if ((!head) || (!head->next) || (!head->next->next)) return;
         
+        stack<ListNode*> stack;
         
-        ListNode *tmp = head, *half = head, *prev = NULL;
+        ListNode *dummy = head;
         
-        while (tmp->next && tmp->next->next) {
-            tmp = tmp->next->next;
-            half = half->next;
+        int size=0;
+        
+        while(dummy!=NULL){
+            stack.push(dummy);
+            size++;
+            dummy = dummy->next;
         }
         
-        if (tmp->next) half = half->next;
+        ListNode *prev = head;
         
-        while (half) {
-            tmp = half->next;
-            half->next = prev;
-            prev = half;
-            half = tmp;
+        for(int i = 0;i<size/2;i++){
+            ListNode*element = stack.top();
+            stack.pop();
+            element->next = prev->next;
+            prev->next = element;
+            prev= prev->next->next;
         }
-        half = prev;
+        prev->next = NULL;
         
-        while (head && half) {
-            tmp = head->next;
-            prev = half->next;
-            head->next = half;
-            half->next = tmp;
-            head = tmp;
-            half = prev;
-        }
-        
-        if (head && head->next) head->next->next = NULL;
     }
 };
