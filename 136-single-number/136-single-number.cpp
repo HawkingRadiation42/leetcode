@@ -6,7 +6,7 @@ public:
         }
         int ans =0;
         for(auto x:nums){
-            ans^=x;
+            ans^=x;//xor 
         }
         return ans;
     }
