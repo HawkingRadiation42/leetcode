@@ -1,24 +1,30 @@
 class Solution {
 public:
     vector<vector<int>> merge(vector<vector<int>>& intervals) {
-        vector<vector<int>> output;
         
         if(intervals.size()<=1) 
             return intervals;
         
-        sort(intervals.begin(), intervals.end());
-        vector<int> tempinterval = intervals[0];
+        vector<vector<int>> ans;
+
+        sort(intervals.begin(),intervals.end()); //coz they are unsorted in this Q
+        int n = intervals.size();
         
-        for(auto it: intervals){
-            if(it[0] <= tempinterval[1]){
-                tempinterval[1] = max(it[1], tempinterval[1]);
+        ans.push_back(intervals[0]);
+        
+        int j =0;
+        
+        for(int i=1;i<n;i++){
+            if(ans[j][1]>=intervals[i][0]){
+                // ans[j][1] = intervals[i][1]; //this doesnt work have to use max
+                ans[j][1] = max(intervals[i][1], ans[j][1]);
+
             }
             else{
-                output.push_back(tempinterval);
-                tempinterval = it;
+                j++;
+                ans.push_back(intervals[i]);
             }
         }
-        output.push_back(tempinterval);
-        return output;
+        return ans;
     }
 };
