@@ -10,6 +10,7 @@
  */
 class Solution {
 public:
+    
     ListNode* removeElements(ListNode* head, int val) {
         while(head && head->val==val){
             head=head->next;
