@@ -1,18 +1,19 @@
 class Solution {
 public:
-    int binarySearch(vector<int>& nums, int l, int r, int x){
-        if (r >= l) {
-            int mid = l + (r - l) / 2;
-            if (nums[mid] == x)
-                return mid;
-            if (nums[mid] > x)
-                return binarySearch(nums, l, mid - 1, x);
-            return binarySearch(nums, mid + 1, r, x);
-        }
-        return -1;
-    }
     int search(vector<int>& nums, int target) {
-
-        return binarySearch(nums, 0, nums.size()-1, target);;
+        int low = 0;
+        int high = nums.size() - 1;
+        return binarysearch(nums, low, high, target);
+    }
+    int binarysearch(vector<int>& nums, int low, int high, int target) {
+        if(low > high) return -1;
+        int mid = (low + high) / 2;
+        
+        if(nums[mid] == target) return mid;
+        
+        if(target > nums[mid])
+            return binarysearch(nums, mid + 1, high, target);
+        else 
+            return binarysearch(nums, low, mid - 1, target);
     }
 };
