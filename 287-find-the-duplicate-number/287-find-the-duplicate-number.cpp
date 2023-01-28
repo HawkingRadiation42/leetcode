@@ -1,7 +1,7 @@
 class Solution {
 public:
     int findDuplicate(vector<int>& nums) {
-
+        // tortoise hare approach
         int slow =0;
         int fast =0;
         do{
