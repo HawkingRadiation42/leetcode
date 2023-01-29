@@ -8,8 +8,8 @@ public:
         
         if(n<0){
             //code for 1/x^n
-            n=abs(n);
-            x = 1/x;
+            n = -(n+1); // to avoid integer overflow when converting from - to positive
+            return 1/x*myPow(1/x, n);
         }
         if(n%2==0){
             return myPow(x*x, n/2);
