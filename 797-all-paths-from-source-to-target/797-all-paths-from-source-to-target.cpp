@@ -15,9 +15,10 @@ public:
         if(currnode == graph.size()-1)
             ans.push_back(path);
         
-        else for(auto it: graph[currnode])
-            dfs(graph, it);
-            
+        else{
+            for(auto it: graph[currnode])
+                dfs(graph, it);
+        }
         path.pop_back();
     }
 };
