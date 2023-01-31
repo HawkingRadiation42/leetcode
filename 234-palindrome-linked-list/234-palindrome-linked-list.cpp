@@ -11,21 +11,26 @@
 class Solution {
 public:
     bool isPalindrome(ListNode* head) {
-        ListNode *prev=NULL, *slow=head, *fast=head, *tmp;
-        while(fast && fast->next){
-            fast = fast->next->next;
-            tmp = slow->next, slow->next = prev, prev = slow, slow = tmp;
+        ListNode *slow=head,*fast=head;
+        if(!head->next)  return true;
+        while(fast->next && fast->next->next){              // finding middle of linked list 
+            slow=slow->next;
+            fast=fast->next->next;
         }
-        slow = (fast ? slow -> next : slow); // for odd length case as mentioned above
-	    while(slow){ // check if linked lists starting at prev and slow are equal
-		    if(slow -> val != prev -> val){
-                return false;
-            }
-		    else{ 
-                slow = slow -> next;
-                prev = prev -> next;
-            }
+        ListNode*prev=NULL,*curr=slow->next,*temp;
+        while(curr!=NULL){                                 // reversing the linked list after the middle node
+            temp=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=temp;
         }
-	    return true;
+        slow->next=prev;                                   // joining the reversed linked list after the middle node
+        ListNode *start=head,*mid=slow->next;
+        while(mid){                                        // valued being checked here
+            if(start->val!=mid->val) return false;
+            start=start->next;
+            mid=mid->next;
+        }
+        return true;
     }
 };
