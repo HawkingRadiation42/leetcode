@@ -1,36 +1,30 @@
 class Solution {
 public:
-    
-    void DFS(vector<vector<char>> &grid, int i, int j){
-        
-        if(i<0 || i>=grid.size() || j<0 || j>=grid[0].size()) //boundary checking   
-            return;
-        
-        if(grid[i][j]=='2' || grid[i][j]=='0')//return if current position is water or visited when used in recursion in the below code it might land in water again while checking
-            return;
 
-        grid[i][j]='2';//mark the current as visited 
-        //do dfs in all 4 directions 
-        DFS(grid, i+1, j);
-        DFS(grid, i, j+1);
-        DFS(grid, i, j-1);
-        DFS(grid, i-1, j);
+    void dfs(int r, int c, vector<vector<char>>& grid, int rows, int columns){
+        if(r >= 0 && r < rows && c >= 0 && c < columns && grid[r][c] == '1'){
+            grid[r][c]= '0';
+            dfs(r-1, c, grid, rows, columns);
+            dfs(r+1, c, grid, rows, columns);
+            dfs(r, c-1, grid, rows, columns);
+            dfs(r, c+1, grid, rows, columns);
+        }
     }
-    
     int numIslands(vector<vector<char>>& grid) {
-        if (grid.size()==NULL)
-            return 0;
-//each island is a connected component
-        int ans =0;
+//         if(grid.size()==0)
+//             return 0;
         
-        for(int i=0;i<grid.size();i++){
-            for(int j=0;j<grid[0].size();j++){
-                if(grid[i][j]=='1'){
-                    DFS(grid, i, j);
-                    ++ans;
+        int rows = grid.size();
+        int column = grid[0].size();
+        int count = 0;
+        for(int i=0;i<rows;i++){
+            for( int j=0;j<column;j++){
+                if(grid[i][j]== '1'){
+                    count++;
+                    dfs(i, j, grid, rows, column);
                 }
             }
         }
-        return ans;
+        return count;
     }
 };
