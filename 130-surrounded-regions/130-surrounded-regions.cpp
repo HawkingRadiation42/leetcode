@@ -1,42 +1,46 @@
 class Solution {
 public:
-    void DFS(vector<vector<char>>& board, int x, int y, char c){
-        if (x < 0 || x >= board.size() || y < 0 || y >= board[0].size() || board[x][y] != 'O') return;
-            
-        board[x][y] = c;
+    
+    void dfs(int r, int c, vector<vector<char>>& board){
+        int rows = board.size();
+        int col = board[0].size();
         
-        DFS(board, x + 1, y, c);
-        DFS(board, x - 1, y, c);
-        DFS(board, x, y + 1, c);
-        DFS(board, x, y - 1, c);
+        
+        if (r < 0 || r >= rows || c < 0 || c >= col || board[r][c] != 'O') {
+            return;
+        }
+        board[r][c]= 'A';
+        dfs(r-1, c, board);
+        dfs(r+1, c, board);
+        dfs(r, c-1, board);
+        dfs(r, c+1, board);
     }
+    
     void solve(vector<vector<char>>& board) {
-        int n = board.size(), m = board[0].size();
         
-        for(int i=0;i<n;i++){
-            if(board[i][0]=='O') 
-                DFS(board, i, 0, '!');
-            if (board[i][m-1] == 'O') 
-                DFS(board, i, m-1, '!');
+        if (board.size() == 0) {
+            return;
         }
-        
-        for (int i = 0; i < m; i++) {
-            if (board[0][i] == 'O')
-                DFS(board, 0, i, '!');
-            if (board[n-1][i] == 'O') 
-                DFS(board, n-1, i, '!');
-        }
-        
-        // Change all remaining 'O's to 'x' and '!' back to 'O'
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                
-                if (i && j && i < n - 1 && j < m - 1 && board[i][j] == 'O') 
-                    board[i][j] = 'X';
-                
-                if (board[i][j] == '!') 
-                    board[i][j] = 'O';
+        int rows = board.size();
+        int col = board[0].size();
+        for(int i =0;i<rows;i++){
+            for(int j=0;j<col;j++){
+                if(i==0 || i==rows-1 || j==0 || j==col-1){
+                    if(board[i][j]== 'O'){
+                        dfs(i, j, board);
+                    }
+                }
             }
         }
-    }    
+        for(int i =0;i<rows;i++){
+            for(int j=0;j<col;j++){
+                if(board[i][j]=='O'){
+                    board[i][j]='X';
+                }
+                if(board[i][j]=='A'){
+                    board[i][j]='O';
+                }
+            }
+        }
+    }
 };
