@@ -26,7 +26,8 @@ public:
         if(x<0 or x>=m or y<0 or y>=n) return;
         if(visited[x][y] or grid2[x][y]==0) return;
         
-        if(grid1[x][y] == 0) flag = false;
+        if(grid1[x][y] == 0)
+            flag = false;
         
         visited[x][y] = 1;
         dfs(x-1,y,m,n,grid1,grid2,visited);
