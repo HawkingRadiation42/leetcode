@@ -6,13 +6,14 @@ public:
         for(auto it: s){
             mp[it]++;
         }
-        priority_queue<pair<int, char>> pq;
-        for(auto [a,b]: mp){
-            pq.push({b,a});
+        vector<vector<char>> buckets(s.size()+1);
+        for(auto [a, freq]: mp){
+            buckets[freq].push_back(a);
         }
-        while(!pq.empty()){
-            res+= string(pq.top().first, pq.top().second);
-            pq.pop();    
+        for(int i=s.size();i>0;i--){
+            for(auto ch: buckets[i]){
+                res+=string(i,ch);
+            }
         }
         return res;
     }
