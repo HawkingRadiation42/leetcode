@@ -12,21 +12,19 @@
 class Solution {
 public:
     bool isSymmetric(TreeNode* root) {
-        // if(root==NULL)
-        //     return true;
-        return traversal(root->left, root->right);
+        if(root==NULL)
+            return true;
+        return check(root->left, root->right);
     }
-    bool traversal(TreeNode* p , TreeNode* q){
-        if(p == NULL && q == NULL) //left & right node is NULL 
-            return true; 
-        
-        else if(p == NULL || q == NULL) //one of them is Not NULL
-            return false; 
-        
-        else if(p->val!=q->val) 
+    bool check(TreeNode *left, TreeNode *right){
+        if(left==NULL && right==NULL)
+            return true;
+        if(left==NULL || right==NULL){
             return false;
-        
-
-        return traversal(p->left, q->right) && traversal(p->right, q->left);
+        }
+        else if(left->val != right->val){
+            return false;
+        }
+        return check(left->left, right->right) && check(left->right, right->left);
     }
 };
