@@ -9,9 +9,8 @@ public:
             }
             else{
                 count++;
-                maxcount = max(count, maxcount);
             }
         }
-        return maxcount;
+        return max(maxcount, count);
     }
 };
