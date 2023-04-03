@@ -6,15 +6,6 @@ public:
         int index=0;
         
         for(int i=0;i<gas.size();i++){
-            gastank+=gas[i];
-            tcost+=cost[i];
-        }
-        if(gastank < tcost){
-            return -1;
-        }
-        gastank=0;
-        tcost=0;
-        for(int i=0;i<gas.size();i++){
             
             tcost += gas[i]-cost[i];
             gastank += gas[i]-cost[i];
@@ -24,6 +15,8 @@ public:
                 index=i+1;
             }
         }
+        if(tcost<0)
+            return -1;
         return index;
     }
 };
