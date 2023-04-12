@@ -31,12 +31,12 @@ public:
             if(root->left == NULL)// no left child 
             {
                 TreeNode* temp = root->right;
-                // free(root);
+                delete(root);
                 return temp;
             }
             else if(root->right == NULL){ // no right child 
                 TreeNode* temp = root->left;
-                // free(root);
+                delete(root);
                 return temp;
             }
             // when there are both children 
