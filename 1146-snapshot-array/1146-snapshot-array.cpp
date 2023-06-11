@@ -17,6 +17,7 @@ public:
         return  s_id - 1;
     }
     int get(int index, int snap_id) {
+        // if the given snapshot ID exists in the map for the specified index. If not, it finds and returns the value associated with the nearest previous snapshot ID.
         if(a[index].find(snap_id) == a[index].end())
         {
             auto it = --a[index].lower_bound(snap_id);
