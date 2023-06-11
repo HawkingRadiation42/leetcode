@@ -23,13 +23,13 @@ public:
         }
         int n = nums.size();
         for (int i = 0; i < n - 2; i++) {
-        // Avoiding duplicates for the first element
+        // to avoid duplicates for the first element
         if (i > 0 && nums[i] == nums[i - 1])
             continue;
         
-        int target = -nums[i]; // Target sum for the two-pointer technique
-        int left = i + 1; // Left pointer
-        int right = n - 1; // Right pointer
+        int target = -nums[i]; // target sum for two-pointer method
+        int left = i + 1; // left p
+        int right = n - 1; // right p
         
         while (left < right) {
             int sum = nums[left] + nums[right];
@@ -37,19 +37,20 @@ public:
             if (sum == target) {
                 res.push_back({nums[i], nums[left], nums[right]});
                 
-                // Avoiding duplicates for the second and third elements
+                // avoiding duplicates for the second and third elements
                 while (left < right && nums[left] == nums[left + 1])
                     left++;
                 while (left < right && nums[right] == nums[right - 1])
                     right--;
                 
-                // Moving the pointers
                 left++;
                 right--;
-            } else if (sum < target) {
-                left++; // Increment left pointer if sum is less than target
-            } else {
-                right--; // Decrement right pointer if sum is greater than target
+            }
+            else if (sum < target) {
+                left++; 
+            }
+            else {
+                right--;
             }
         }
     }
