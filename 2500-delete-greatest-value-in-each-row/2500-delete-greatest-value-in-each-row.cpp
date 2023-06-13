@@ -8,12 +8,12 @@ public:
         int res=0;
         int j=0;
         while(j<grid[0].size()){
-            int maxi=0;
+            int maximum=0;
             for(int i=0; i<grid.size(); i++){
-                maxi = max(maxi, grid[i][j]);  
+                maximum = max(maximum, grid[i][j]);  
             }
             j++;
-            res += maxi; 
+            res += maximum; 
         }
         return res;
     }
